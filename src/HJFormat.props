@@ -1,0 +1,60 @@
+# HJFormatPlugin plugin properties
+
+plugin.wjw.jedit.plugin.HJFormatPlugin.name=HJFormatPlugin
+plugin.wjw.jedit.plugin.HJFormatPlugin.author=wjw
+plugin.wjw.jedit.plugin.HJFormatPlugin.version=1.1
+plugin.wjw.jedit.plugin.HJFormatPlugin.docs=index.html
+plugin.wjw.jedit.plugin.HJFormatPlugin.activate=defer
+plugin.wjw.jedit.plugin.HJFormatPlugin.description=The HJFormatPlugin format,compress,encryption HTML and Javascript.
+
+plugin.wjw.jedit.plugin.HJFormatPlugin.depend.0=jdk 1.5
+plugin.wjw.jedit.plugin.HJFormatPlugin.depend.1=jedit 04.03.99.00
+plugin.wjw.jedit.plugin.HJFormatPlugin.depend.2=plugin errorlist.ErrorListPlugin 1.9
+plugin.wjw.jedit.plugin.HJFormatPlugin.jars=js.jar jodd.jar
+
+# for plugin menu
+HJFormatPlugin.label=HJFormatPlugin
+plugin.wjw.jedit.plugin.HJFormatPlugin.menu=\
+    HJFormat-format-buffer \
+    HJFormat-compress-buffer \
+    HJFormat-encryption-buffer \
+    - \
+    HJFormat-wrapJavaString-buffer \
+    HJFormat-unwrapJavaString-buffer
+
+HJFormat-format-buffer.label=Format current buffer
+HJFormat-compress-buffer.label=Compress current buffer
+HJFormat-encryption-buffer.label=Encryption current buffer
+HJFormat-wrapJavaString-buffer.label=Wrap Java String current buffer
+HJFormat-unwrapJavaString-buffer.label=Unwrap Java String current buffer
+
+# Option panes labels
+options.HJFormat.label=HJFormat
+plugin.wjw.jedit.plugin.HJFormatPlugin.option-group=HJFormat.general
+
+options.HJFormat.general.title=General
+options.HJFormat.general.label=General
+options.HJFormat.general.code=new wjw.jedit.plugin.options.JTidyGeneralOptionPane();
+
+# No help message found
+options.HJFormat.no-help.found.text=No help available
+
+# Custom options
+options.HJFormat.indent-count=indent-count:
+HJFormat.indent-count.0=2
+HJFormat.indent-count.1=4
+HJFormat.indent-count.2=8
+options.HJFormat.indent-count.0.text=2 byte indent
+options.HJFormat.indent-count.1.text=4 byte indent
+options.HJFormat.indent-count.2.text=8 byte indent
+
+options.HJFormat.new-buffer=format content in new buffer.
+HJFormat.new-buffer=false
+options.HJFormat.new-buffer.text=\
+If set, HJFormat will write formated content into new buffer.
+
+options.HJFormat.wrap=Wrap:
+HJFormat.wrap=120
+options.HJFormat.wrap.text=\
+\u8bbe\u7f6e\u81ea\u52a8\u6362\u884c\u8fb9\u8ddd\u5b57\u8282\u6570. \u7f3a\u7701\u662f120. \
+\u8bbe\u7f6e\u4e3a0\u662f\u7981\u6b62\u81ea\u52a8\u6362\u884c.  

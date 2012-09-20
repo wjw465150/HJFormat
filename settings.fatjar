@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Tue Aug 28 12:35:42 GMT+08:00 2012
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=HJFormat.jar
+manifest.mergeall=true
+manifest.mainclass=
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=<jar|js.jar>;<jar|jedit.jar>;<jar|jodd.jar>
+includes=

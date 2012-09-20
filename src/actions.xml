@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE ACTIONS SYSTEM "actions.dtd">
+
+<ACTIONS>
+    <ACTION NAME="HJFormat-format-buffer">
+        <CODE>
+            wjw.jedit.plugin.HJFormatBuffer.formatBuffer(view);
+        </CODE>
+    </ACTION>
+    <ACTION NAME="HJFormat-compress-buffer">
+        <CODE>
+            wjw.jedit.plugin.HJFormatBuffer.compressBuffer(view);
+        </CODE>
+    </ACTION>
+    <ACTION NAME="HJFormat-encryption-buffer">
+        <CODE>
+            wjw.jedit.plugin.HJFormatBuffer.encryptionBuffer(view);
+        </CODE>
+    </ACTION>
+    <ACTION NAME="HJFormat-wrapJavaString-buffer">
+        <CODE>
+            wjw.jedit.plugin.HJFormatBuffer.wrapJavaStringBuffer(view);
+        </CODE>
+    </ACTION>
+    <ACTION NAME="HJFormat-unwrapJavaString-buffer">
+        <CODE>
+            wjw.jedit.plugin.HJFormatBuffer.unwrapJavaStringBuffer(view);
+        </CODE>
+    </ACTION>
+</ACTIONS>
