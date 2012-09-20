@@ -3,7 +3,7 @@
 *.class
 
 # Package Files #
-*.jar
+HJFormat.jar
 *.war
 *.ear
 

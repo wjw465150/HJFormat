@@ -9,7 +9,7 @@
 <pre><font color="#000000"><span style="background:#e9e9e9; border-right:solid 2px black; margin-right:5px; "><font color="#000000">   1 </font></span>HJFormat
 <span style="background:#e9e9e9; border-right:solid 2px black; margin-right:5px; "><font color="#000000">   2 </font></span>========
 <span style="background:#e9e9e9; border-right:solid 2px black; margin-right:5px; "><font color="#000000">   3 </font></span>
-<span style="background:#e9e9e9; border-right:solid 2px black; margin-right:5px; "><font color="#000000">   4 </font></span>jedit(http://www.jedit.org/) plugin,format,compress,encryption HTML and Javascrip;escape/unescape Java String statement.
+<span style="background:#e9e9e9; border-right:solid 2px black; margin-right:5px; "><font color="#000000">   4 </font></span>jedit (http://www.jedit.org/) plugin,format,compress,encryption HTML and Javascrip;escape/unescape Java String statement.
 <span style="background:#e9e9e9; border-right:solid 2px black; margin-right:5px; "><font color="#990066">   5 </font></span>
 <span style="background:#e9e9e9; border-right:solid 2px black; margin-right:5px; "><font color="#000000">   6 </font></span>For example:
 <span style="background:#e9e9e9; border-right:solid 2px black; margin-right:5px; "><font color="#000000">   7 </font></span>
