@@ -1,7 +1,7 @@
 HJFormat
 ========
 
-jedit plugin,format,compress,encryption HTML and Javascrip;escape/unescape Java String statement.
+jedit(http://www.jedit.org/) plugin,format,compress,encryption HTML and Javascrip;escape/unescape Java String statement.
 
 For example:
 
