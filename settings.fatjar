@@ -1,6 +1,6 @@
 #Fat Jar Configuration File
-#Thu Sep 20 15:28:41 GMT+08:00 2012
-onejar.license.required=true
+#Fri Aug 16 11:30:58 CST 2013
+onejar.license.required=false
 manifest.classpath=
 manifest.removesigners=true
 onejar.checkbox=false
@@ -10,5 +10,5 @@ manifest.mainclass=
 manifest.file=<createnew>
 jarname.isextern=false
 onejar.expand=
-excludes=
+excludes=<jar|jedit.jar>
 includes=

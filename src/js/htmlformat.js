@@ -394,7 +394,7 @@ function style_html(html_source, indent_size, indent_character, max_char) {
   
   
   multi_parser = new Parser(); //wrapping functions Parser
-  multi_parser.printer(html_source, indent_character, indent_size); //initialize starting values
+  multi_parser.printer(html_source, indent_character, indent_size, max_char); //initialize starting values
   
   
   

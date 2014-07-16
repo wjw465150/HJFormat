@@ -2,6 +2,7 @@ package wjw.jedit.plugin;
 
 import jodd.util.CharUtil;
 
+import org.gjt.sp.jedit.jEdit;
 import org.mozilla.javascript.*;
 import org.mozilla.javascript.tools.shell.Global;
 import org.mozilla.javascript.tools.shell.Main;
@@ -29,11 +30,13 @@ public abstract class HJFormatBeautifier {
 			//…Ë÷√scope Ù–‘
 			scope.put("___text", scope, text);
 
+			int wrapLen = jEdit.getIntegerProperty("HJFormat.wrap", 120);
+			int indentSize = jEdit.getIntegerProperty("HJFormat.indent-count" + "." + jEdit.getIntegerProperty("HJFormat.indent-count"));
 			String jsStr;
 			if (startsWithIgnoreWhitespace(text,"<")) {
-				jsStr = HJFormatPlugin.ALL_JS + " style_html(___text, " + 2 + ", ' ', " + 120 + ");";
+				jsStr = HJFormatPlugin.ALL_JS + " style_html(___text, " + indentSize + ", ' ', " + wrapLen + ");";
 			} else {
-				jsStr = HJFormatPlugin.ALL_JS + " js_beautify(___text, " + 2 + ", ' ');";
+				jsStr = HJFormatPlugin.ALL_JS + " js_beautify(___text, " + indentSize + ", ' ');";
 			}
 
 			// ÷¥––js
