@@ -132,26 +132,31 @@ public class HJFormatBuffer {
 			lineText = textArea.getLineText(0);
 			sb.append("String jStr = \"");
 			sb.append(StringUtil.escapeJava(lineText));
-			sb.append("\";\n");
+			sb.append("\";");
 		} else {
 			sb.append("String jStr = \"");
 			for (int i = 0; i < lineCount; i++) {
 				lineText = textArea.getLineText(i);
-				if (i > 0) {
-					sb.append("\n+\"");
-				}
 				sb.append(StringUtil.escapeJava(lineText));
 				if (i == (lineCount - 1)) {
 					sb.append("\"");
 				} else {
-					sb.append("\\n\"");
+					sb.append("\\n\"+\n\"");
 				}
 			}
-			sb.append(";\n");
+			sb.append(";");
 		}
 
 		String text = sb.toString();
 
+		// Setting tidy standard output
+		boolean new_buffer = jEdit.getBooleanProperty("HJFormat.new-buffer", false);
+		
+		if (!new_buffer) {
+			HJFormatBuffer.setBufferText(buffer, text);
+			return;
+		}
+		
 		// Create a new buffer and put the tidied content
 		Buffer newBuffer = jEdit.newFile(view);
 
@@ -194,6 +199,14 @@ public class HJFormatBuffer {
 
 		String text = sb.toString();
 
+		// Setting tidy standard output
+		boolean new_buffer = jEdit.getBooleanProperty("HJFormat.new-buffer", false);
+		
+		if (!new_buffer) {
+			HJFormatBuffer.setBufferText(buffer, text);
+			return;
+		}
+		
 		// Create a new buffer and put the tidied content
 		Buffer newBuffer = jEdit.newFile(view);
 
