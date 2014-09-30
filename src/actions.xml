@@ -28,4 +28,14 @@
             wjw.jedit.plugin.HJFormatBuffer.unwrapJavaStringBuffer(view);
         </CODE>
     </ACTION>
+    <ACTION NAME="HJFormat-C2E-buffer">
+        <CODE>
+            wjw.jedit.plugin.HJFormatBuffer.C2E(view);
+        </CODE>
+    </ACTION>
+    <ACTION NAME="HJFormat-E2C-buffer">
+        <CODE>
+            wjw.jedit.plugin.HJFormatBuffer.E2C(view);
+        </CODE>
+    </ACTION>
 </ACTIONS>

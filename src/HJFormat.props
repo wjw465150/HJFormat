@@ -20,13 +20,18 @@ plugin.wjw.jedit.plugin.HJFormatPlugin.menu=\
     HJFormat-encryption-buffer \
     - \
     HJFormat-wrapJavaString-buffer \
-    HJFormat-unwrapJavaString-buffer
+    HJFormat-unwrapJavaString-buffer \
+    - \
+    HJFormat-C2E-buffer \
+    HJFormat-E2C-buffer
 
 HJFormat-format-buffer.label=Format current buffer
 HJFormat-compress-buffer.label=Compress current buffer
 HJFormat-encryption-buffer.label=Encryption current buffer
 HJFormat-wrapJavaString-buffer.label=Wrap Java String current buffer
 HJFormat-unwrapJavaString-buffer.label=Unwrap Java String current buffer
+HJFormat-C2E-buffer.label=Chinese punctuation to English current buffer
+HJFormat-E2C-buffer.label=English punctuation to Chinese current buffer
 
 # Option panes labels
 options.HJFormat.label=HJFormat

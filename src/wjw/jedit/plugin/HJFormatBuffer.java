@@ -15,6 +15,19 @@ import org.gjt.sp.jedit.textarea.JEditTextArea;
 import org.gjt.sp.util.Log;
 
 public class HJFormatBuffer {
+	private static final String[] ChineseInterpunction = { "¡°", "¡±", "¡®", "¡¯", "¡£", "£¬", "£»", "£º", "£¿", "£¡", "¡­¡­", "¡ª",
+	    "¡«", "£¨", "£©", "¡¶", "¡·", "¨”", "¨•" };
+	private static final String[] EnglishInterpunction = { "\"", "\"", "'", "'", ".", ",", ";", ":", "?", "!", "¡­", "-",
+	    "~", "(", ")", "<", ">", "\"", "\"" };
+	private static final java.util.Map<String, String> mapC2E = new java.util.HashMap<String, String>(ChineseInterpunction.length);
+	private static final java.util.Map<String, String> mapE2C = new java.util.HashMap<String, String>(ChineseInterpunction.length);
+	static {
+		for (int i = 0; i < ChineseInterpunction.length; i++) {
+			mapC2E.put(ChineseInterpunction[i], EnglishInterpunction[i]);
+			mapE2C.put(EnglishInterpunction[i], ChineseInterpunction[i]);
+		}
+	}
+
 	private static void cpoyBufferProperties(Buffer srcBuffer, Buffer destBuffer) {
 		destBuffer.setProperty("lineSeparator", srcBuffer.getStringProperty("lineSeparator"));
 		destBuffer.setProperty("encoding", srcBuffer.getStringProperty("encoding"));
@@ -151,12 +164,12 @@ public class HJFormatBuffer {
 
 		// Setting tidy standard output
 		boolean new_buffer = jEdit.getBooleanProperty("HJFormat.new-buffer", false);
-		
+
 		if (!new_buffer) {
 			HJFormatBuffer.setBufferText(buffer, text);
 			return;
 		}
-		
+
 		// Create a new buffer and put the tidied content
 		Buffer newBuffer = jEdit.newFile(view);
 
@@ -201,12 +214,12 @@ public class HJFormatBuffer {
 
 		// Setting tidy standard output
 		boolean new_buffer = jEdit.getBooleanProperty("HJFormat.new-buffer", false);
-		
+
 		if (!new_buffer) {
 			HJFormatBuffer.setBufferText(buffer, text);
 			return;
 		}
-		
+
 		// Create a new buffer and put the tidied content
 		Buffer newBuffer = jEdit.newFile(view);
 
@@ -217,6 +230,88 @@ public class HJFormatBuffer {
 
 			cpoyBufferProperties(buffer, newBuffer);
 			newBuffer.setProperty("defaultMode", "java");
+			newBuffer.propertiesChanged();
+
+			HJFormatBuffer.setBufferText(newBuffer, text);
+		}
+
+	}
+
+	public static void C2E(View view) {
+		Buffer buffer = view.getBuffer();
+		Mode mode = buffer.getMode();
+
+		JEditTextArea textArea = view.getTextArea();
+		String text = textArea.getText();
+		char[] cc = text.toCharArray();
+		int len = cc.length;
+		String key;
+		for (int i = 0; i < len; i++) {
+			key = String.valueOf(cc[i]);
+			if (mapC2E.containsKey(key)) {
+				cc[i] = mapC2E.get(key).charAt(0);
+			}
+		}
+		text = String.valueOf(cc);
+
+		// Setting tidy standard output
+		boolean new_buffer = jEdit.getBooleanProperty("HJFormat.new-buffer", false);
+
+		if (!new_buffer) {
+			HJFormatBuffer.setBufferText(buffer, text);
+			return;
+		}
+
+		// Create a new buffer and put the tidied content
+		Buffer newBuffer = jEdit.newFile(view);
+
+		if (newBuffer == null) {
+			new WaitForBuffer(mode, text);
+		} else {
+			newBuffer.setMode(mode);
+
+			cpoyBufferProperties(buffer, newBuffer);
+			newBuffer.propertiesChanged();
+
+			HJFormatBuffer.setBufferText(newBuffer, text);
+		}
+
+	}
+
+	public static void E2C(View view) {
+		Buffer buffer = view.getBuffer();
+		Mode mode = buffer.getMode();
+
+		JEditTextArea textArea = view.getTextArea();
+		String text = textArea.getText();
+		char[] cc = text.toCharArray();
+		int len = cc.length;
+		String key;
+		for (int i = 0; i < len; i++) {
+			key = String.valueOf(cc[i]);
+			if (mapE2C.containsKey(key)) {
+				cc[i] = mapE2C.get(key).charAt(0);
+			}
+		}
+		text = String.valueOf(cc);
+
+		// Setting tidy standard output
+		boolean new_buffer = jEdit.getBooleanProperty("HJFormat.new-buffer", false);
+
+		if (!new_buffer) {
+			HJFormatBuffer.setBufferText(buffer, text);
+			return;
+		}
+
+		// Create a new buffer and put the tidied content
+		Buffer newBuffer = jEdit.newFile(view);
+
+		if (newBuffer == null) {
+			new WaitForBuffer(mode, text);
+		} else {
+			newBuffer.setMode(mode);
+
+			cpoyBufferProperties(buffer, newBuffer);
 			newBuffer.propertiesChanged();
 
 			HJFormatBuffer.setBufferText(newBuffer, text);
@@ -262,12 +357,16 @@ public class HJFormatBuffer {
 	}
 
 	public static void main(String[] args) {
-		String jStr = "    int lineCount = textArea.getLineCount();\n"
-		    + "    StringBuilder sb = new StringBuilder(buffer.getLength()); \n"
-		    + "    sb.append(\"String jStr = \\\"\");\n" + "    for(int i=0;i<lineCount;i++) {\n" + "      if(i>0) {\n"
-		    + "        sb.append(\"+\\\"\");\n" + "      }\n"
-		    + "      sb.append(StringUtil.escapeJava(textArea.getLineText(i)));\n" + "      sb.append(\"\\\"\\n\");\n"
-		    + "    }\n" + "";
+		String jStr = "£¿,£¡";
+		char[] cc = jStr.toCharArray();
+		int len = cc.length;
+		for (int i = 0; i < len; i++) {
+			if (mapC2E.containsKey(String.valueOf(cc[i]))) {
+				cc[i] = mapC2E.get(String.valueOf(cc[i])).charAt(0);
+			}
+		}
+		jStr = String.valueOf(cc);
+
 		System.out.print(jStr);
 	}
 }
