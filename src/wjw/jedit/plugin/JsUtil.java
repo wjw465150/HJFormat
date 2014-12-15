@@ -23,14 +23,11 @@ public abstract class JsUtil {
 	private static final String MODE = "html";
 	private static final String CODE = "UTF-8";
 
-	private static final String jStr1 = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n"+
-			"<html>\n"+
-			"<head>\n"+
-			"<title>";
-	private static final String jStr2 = "</title>\n"+
-			"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n"+
-			"<style>\n";
-	private static final String jStr3 = "\n</style>\n";
+	private static final String jStr1 = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n"
+	    + "<html>\n" + "<head>\n" + "<title>";
+	private static final String jStr2 = "</title>\n"
+	    + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n" + "<style>\n<!--\n";
+	private static final String jStr3 = "\n-->\n</style>\n";
 	private static final String jStr4 = "\n<script language=\"JavaScript\" type=\"text/javascript\">\n<!--\n";
 	private static final String jStr5 = "\n-->\n</script>\n";
 	private static final String jStr6 = "\n</head>\n" + "<body>\n" + "<div id='generated-toc'></div>\n" + "";
@@ -115,7 +112,7 @@ public abstract class JsUtil {
 
 			return Context.toString(result);
 		} catch (Throwable thex) {
-			thex.printStackTrace();
+			JOptionPane.showMessageDialog(null, thex.getMessage(), "HJFormat Plugin", JOptionPane.WARNING_MESSAGE);
 			return thex.toString();
 		} finally {
 			Context.exit();
@@ -178,7 +175,7 @@ public abstract class JsUtil {
 
 	public static void saveToFile(final View view, final Buffer buffer, final String text) {
 		if (buffer.isUntitled()) {
-			JOptionPane.showMessageDialog(null, "Buffer must saved.", "HJFormat Plugin", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Buffer first must saved!", "HJFormat Plugin", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		File htmlFile = new File(buffer.getPath() + ".html");

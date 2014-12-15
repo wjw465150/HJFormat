@@ -43,8 +43,13 @@ public class HJFormatBuffer {
 		destBuffer.setProperty("indentSize", srcBuffer.getStringProperty("indentSize"));
 	}
 
-	public static void renderBrowser(final View view, final Buffer markdownBuffer) {
-		String text = markdownBuffer.getText(0, markdownBuffer.getLength());
+	public static void renderBrowser(final View view, final Buffer buffer) {
+		if (buffer.isUntitled()) {
+			JOptionPane.showMessageDialog(null, "Buffer first must saved!", "HJFormat Plugin", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
+		String text = buffer.getText(0, buffer.getLength());
 
 		if (0 == text.length()) {
 			view.getToolkit().beep();
@@ -55,7 +60,7 @@ public class HJFormatBuffer {
 		}
 
 		text = JsUtil.markdown2Html(text);
-	  JsUtil.saveToFile(view, markdownBuffer, text);
+	  JsUtil.saveToFile(view, buffer, text);
 	}
 	
 	public static void formatBuffer(View view) {
