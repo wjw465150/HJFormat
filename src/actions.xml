@@ -38,4 +38,9 @@
             wjw.jedit.plugin.HJFormatBuffer.E2C(view);
         </CODE>
     </ACTION>
+    <ACTION NAME="HJFormat-markdown-buffer">
+        <CODE>
+            wjw.jedit.plugin.HJFormatBuffer.renderBrowser(view,buffer);
+        </CODE>
+    </ACTION>
 </ACTIONS>

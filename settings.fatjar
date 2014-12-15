@@ -1,5 +1,5 @@
 #Fat Jar Configuration File
-#Mon Dec 15 11:55:15 CST 2014
+#Mon Dec 15 15:07:18 CST 2014
 onejar.license.required=false
 manifest.classpath=
 manifest.removesigners=true
@@ -10,5 +10,5 @@ manifest.mainclass=
 manifest.file=<createnew>
 jarname.isextern=false
 onejar.expand=
-excludes=<jar|js.jar>;<jar|jedit.jar>;<jar|jodd.jar>
+excludes=<jar|jedit.jar>;<jar|wjw-jodd.jar>;<jar|wjw-js.jar>
 includes=

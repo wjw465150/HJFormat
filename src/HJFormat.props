@@ -15,6 +15,8 @@ plugin.wjw.jedit.plugin.HJFormatPlugin.jars=wjw-jodd.jar wjw-js.jar
 # for plugin menu
 HJFormatPlugin.label=HJFormatPlugin
 plugin.wjw.jedit.plugin.HJFormatPlugin.menu=\
+    HJFormat-markdown-buffer \
+    - \
     HJFormat-format-buffer \
     HJFormat-compress-buffer \
     HJFormat-encryption-buffer \
@@ -25,6 +27,7 @@ plugin.wjw.jedit.plugin.HJFormatPlugin.menu=\
     HJFormat-C2E-buffer \
     HJFormat-E2C-buffer
 
+HJFormat-markdown-buffer.label=Markdown2Html current buffer    
 HJFormat-format-buffer.label=Format current buffer
 HJFormat-compress-buffer.label=Compress current buffer
 HJFormat-encryption-buffer.label=Encryption current buffer

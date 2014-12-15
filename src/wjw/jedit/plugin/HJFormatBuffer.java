@@ -1,5 +1,7 @@
 package wjw.jedit.plugin;
 
+import javax.swing.JOptionPane;
+
 import jodd.util.StringUtil;
 
 import org.gjt.sp.jedit.Buffer;
@@ -41,6 +43,21 @@ public class HJFormatBuffer {
 		destBuffer.setProperty("indentSize", srcBuffer.getStringProperty("indentSize"));
 	}
 
+	public static void renderBrowser(final View view, final Buffer markdownBuffer) {
+		String text = markdownBuffer.getText(0, markdownBuffer.getLength());
+
+		if (0 == text.length()) {
+			view.getToolkit().beep();
+			Log.log(Log.WARNING, HJFormatPlugin.class, "Buffer is empty.");
+			JOptionPane.showMessageDialog(null, "Buffer is empty.", "HJFormat Plugin", JOptionPane.WARNING_MESSAGE);
+
+			return;
+		}
+
+		text = JsUtil.markdown2Html(text);
+	  JsUtil.saveToFile(view, markdownBuffer, text);
+	}
+	
 	public static void formatBuffer(View view) {
 
 		Buffer buffer = view.getBuffer();

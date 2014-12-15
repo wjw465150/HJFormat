@@ -2,8 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="lib/js.jar"/>
 	<classpathentry kind="lib" path="lib/jedit.jar"/>
-	<classpathentry kind="lib" path="lib/jodd.jar"/>
+	<classpathentry kind="lib" path="lib/wjw-jodd.jar"/>
+	<classpathentry kind="lib" path="lib/wjw-js.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
