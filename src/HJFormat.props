@@ -10,7 +10,7 @@ plugin.wjw.jedit.plugin.HJFormatPlugin.description=The HJFormatPlugin format,com
 plugin.wjw.jedit.plugin.HJFormatPlugin.depend.0=jdk 1.5
 plugin.wjw.jedit.plugin.HJFormatPlugin.depend.1=jedit 04.03.99.00
 plugin.wjw.jedit.plugin.HJFormatPlugin.depend.2=plugin errorlist.ErrorListPlugin 1.9
-plugin.wjw.jedit.plugin.HJFormatPlugin.jars=
+plugin.wjw.jedit.plugin.HJFormatPlugin.jars=wjw-jodd.jar wjw-js.jar
 
 # for plugin menu
 HJFormatPlugin.label=HJFormatPlugin
