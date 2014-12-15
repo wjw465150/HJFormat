@@ -23,13 +23,17 @@ public abstract class JsUtil {
 	private static final String MODE = "html";
 	private static final String CODE = "UTF-8";
 
-	private static final String jStr1 = "<!doctype html public '-//W3C//DTD HTML 4.0 Transitional //EN'>\n" + "<html>\n"
-	    + "<head>\n" + "<title>\n";
-	private static final String jStr2 = "</title>\n" + "<meta charset='UTF-8' />\n" + "<style type=\"text/css\">\n";
+	private static final String jStr1 = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n"+
+			"<html>\n"+
+			"<head>\n"+
+			"<title>";
+	private static final String jStr2 = "</title>\n"+
+			"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n"+
+			"<style>\n";
 	private static final String jStr3 = "\n</style>\n";
-	private static final String jStr4 = "\n<script language=\"JavaScript\" type=\"text/javascript\">\n";
-	private static final String jStr5 = "\n</script>\n";
-	private static final String jStr6 = "</head>\n" + "<body>\n" + "<div id='generated-toc'></div>\n" + "";
+	private static final String jStr4 = "\n<script language=\"JavaScript\" type=\"text/javascript\">\n<!--\n";
+	private static final String jStr5 = "\n-->\n</script>\n";
+	private static final String jStr6 = "\n</head>\n" + "<body>\n" + "<div id='generated-toc'></div>\n" + "";
 
 	private static final String jStr7 = "\n\n<script type='text/javascript'>\n" + "$(document).ready(function(){\n"
 	    + "  if($('code').length>0){\n" + "    $('code').parent().addClass('prettyprint linenums');\n"
