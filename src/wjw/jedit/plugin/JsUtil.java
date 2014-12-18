@@ -30,16 +30,24 @@ public abstract class JsUtil {
 	private static final String jStr3 = "\n-->\n</style>\n";
 	private static final String jStr4 = "\n<script language=\"JavaScript\" type=\"text/javascript\">\n<!--\n";
 	private static final String jStr5 = "\n-->\n</script>\n";
-	private static final String jStr6 = "\n</head>\n" + "<body>\n" + "<div id='generated-toc'></div>\n" + "";
+	private static final String jStr6 = "\n</head>\n" + "<body onload=\"load()\">\n" + "<div id='generated-toc'></div>\n" + "";
 
-	private static final String jStr7 = "\n\n<script type='text/javascript'>\n" + "$(document).ready(function(){\n"
-	    + "  if($('code').length>0){\n" + "    $('code').parent().addClass('prettyprint linenums');\n"
-	    + "    prettyPrint();\n" + "};\n" + "});\n" + "</script>\n" + "</body>\n" + "</html>\n";
+	private static final String jStr7 = "\n\n</body>\n" + "</html>\n";
 
+	private static final String jStrLoad = "  function load() {\n"+
+			"    var len=document.getElementsByTagName('code').length; \n"+
+			"    if(len>0){\n"+
+			"      for(var i=0;i<len;i++) {\n"+
+			"        document.getElementsByTagName('code')[i].parentNode.className = \"prettyprint linenums\";\n"+
+			"      }\n"+
+			"      prettyPrint();\n"+
+			"    }\n"+
+			"  }\n"+
+			"";	
+	
 	public static String CSS_DEFAULT;
 	public static String CSS_PRETTIFY;
 
-	public static String JS_JQUERY;
 	public static String JS_MARKDOWN_CONVERTER;
 	public static String JS_MARKDOWN_EXTRA;
 	public static String JS_PRETTIFY;
@@ -53,9 +61,6 @@ public abstract class JsUtil {
 			CSS_DEFAULT = String.valueOf(chars);
 			chars = StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/prettify.css"), CODE);
 			CSS_PRETTIFY = String.valueOf(chars);
-
-			chars = StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/jquery-1.10.2.min.js"), CODE);
-			JS_JQUERY = String.valueOf(chars);
 
 			chars = StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/Markdown.Converter.js"), CODE);
 			JS_MARKDOWN_CONVERTER = String.valueOf(chars);
@@ -143,10 +148,6 @@ public abstract class JsUtil {
 
 			//JS
 			builder.append(jStr4);
-			builder.append(JS_JQUERY);
-			builder.append(jStr5);
-
-			builder.append(jStr4);
 			builder.append(JS_PRETTIFY);
 			builder.append(jStr5);
 
@@ -154,6 +155,10 @@ public abstract class JsUtil {
 			builder.append(JS_TOC);
 			builder.append(jStr5);
 
+			builder.append(jStr4);
+			builder.append(jStrLoad);
+			builder.append(jStr5);
+			
 			//body
 			builder.append(jStr6);
 			builder.append(text);
@@ -197,10 +202,6 @@ public abstract class JsUtil {
 
 			//JS
 			w.write(jStr4);
-			w.write(JS_JQUERY);
-			w.write(jStr5);
-
-			w.write(jStr4);
 			w.write(JS_PRETTIFY);
 			w.write(jStr5);
 
@@ -208,6 +209,10 @@ public abstract class JsUtil {
 			w.write(JS_TOC);
 			w.write(jStr5);
 
+			w.write(jStr4);
+			w.write(jStrLoad);
+			w.write(jStr5);
+			
 			//body
 			w.write(jStr6);
 			w.write(text);
