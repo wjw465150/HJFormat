@@ -6,11 +6,19 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 
 import jodd.io.StreamUtil;
+import jodd.jerry.Jerry;
+import jodd.lagarto.dom.Node;
 
 import org.gjt.sp.jedit.Buffer;
 import org.gjt.sp.jedit.View;
@@ -30,51 +38,134 @@ public abstract class JsUtil {
 	private static final String jStr3 = "\n-->\n</style>\n";
 	private static final String jStr4 = "\n<script language=\"JavaScript\" type=\"text/javascript\">\n<!--\n";
 	private static final String jStr5 = "\n-->\n</script>\n";
-	private static final String jStr6 = "\n</head>\n" + "<body onload=\"load()\">\n" + "<div id='generated-toc'></div>\n" + "";
+	private static final String jStr6 = "\n</head>\n";
+	private static final String jStr7 = "</html>\n";
 
-	private static final String jStr7 = "\n\n</body>\n" + "</html>\n";
-
-	private static final String jStrLoad = "  function load() {\n"+
-			"    var len=document.getElementsByTagName('code').length; \n"+
-			"    if(len>0){\n"+
-			"      for(var i=0;i<len;i++) {\n"+
-			"        document.getElementsByTagName('code')[i].parentNode.className = \"prettyprint linenums\";\n"+
-			"      }\n"+
-			"      prettyPrint();\n"+
-			"    }\n"+
-			"  }\n"+
-			"";	
-	
 	public static String CSS_DEFAULT;
-	public static String CSS_PRETTIFY;
+	public static String CSS_shCoreDefault;
 
 	public static String JS_MARKDOWN_CONVERTER;
 	public static String JS_MARKDOWN_EXTRA;
-	public static String JS_PRETTIFY;
-	public static String JS_TOC;
-
 	public static String JS_EVAL;
 
+	public static String JS_TOC;
+	public static String JS_shCore;
+
+	public static Map<String, String> JS_MAP = new HashMap<String, String>();
 	static {
 		try {
-			char[] chars = StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/default.css"), "GBK");
-			CSS_DEFAULT = String.valueOf(chars);
-			chars = StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/prettify.css"), CODE);
-			CSS_PRETTIFY = String.valueOf(chars);
+			CSS_DEFAULT = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/default.css"), "GBK"));
+			CSS_shCoreDefault = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shCoreDefault.css"), CODE));
 
-			chars = StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/Markdown.Converter.js"), CODE);
-			JS_MARKDOWN_CONVERTER = String.valueOf(chars);
-
-			chars = StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/Markdown.Extra.js"), CODE);
-			JS_MARKDOWN_EXTRA = String.valueOf(chars);
-
-			chars = StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/prettify.js"), CODE);
-			JS_PRETTIFY = String.valueOf(chars);
-
-			chars = StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/toc.js"), CODE);
-			JS_TOC = String.valueOf(chars);
-
+			JS_MARKDOWN_CONVERTER = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/Markdown.Converter.js"), CODE));
+			JS_MARKDOWN_EXTRA = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/Markdown.Extra.js"), CODE));
 			JS_EVAL = JS_MARKDOWN_CONVERTER + "\r\n" + JS_MARKDOWN_EXTRA + "\r\n";
+
+			JS_TOC = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/toc.js"), CODE));
+			JS_TOC = HJFormatBeautifier.compress(JS_TOC);
+
+			JS_shCore = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shCore.js"), CODE));
+			JS_shCore = HJFormatBeautifier.compress(JS_shCore);
+
+			//初始化brush的CSS
+			String shBrushAppleScript = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushAppleScript.js"), CODE)));
+			JS_MAP.put("applescript", shBrushAppleScript);
+
+			String shBrushAS3 = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushAS3.js"), CODE)));
+			JS_MAP.put("actionscript3", shBrushAS3);
+			JS_MAP.put("as3", shBrushAS3);
+
+			String shBrushBash = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushBash.js"), CODE)));
+			JS_MAP.put("bash", shBrushBash);
+			JS_MAP.put("shell", shBrushBash);
+
+			String shBrushColdFusion = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushColdFusion.js"), CODE)));
+			JS_MAP.put("coldfusion", shBrushColdFusion);
+			JS_MAP.put("cf", shBrushColdFusion);
+
+			String shBrushCpp = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushCpp.js"), CODE)));
+			JS_MAP.put("cpp", shBrushCpp);
+			JS_MAP.put("c", shBrushCpp);
+
+			String shBrushCSharp = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushCSharp.js"), CODE)));
+			JS_MAP.put("c#", shBrushCSharp);
+			JS_MAP.put("c-sharp", shBrushCSharp);
+			JS_MAP.put("csharp", shBrushCSharp);
+
+			String shBrushCss = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushCss.js"), CODE)));
+			JS_MAP.put("css", shBrushCss);
+
+			String shBrushDelphi = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushDelphi.js"), CODE)));
+			JS_MAP.put("delphi", shBrushDelphi);
+			JS_MAP.put("pascal", shBrushDelphi);
+			JS_MAP.put("pas", shBrushDelphi);
+
+			String shBrushDiff = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushDiff.js"), CODE)));
+			JS_MAP.put("diff", shBrushDiff);
+			JS_MAP.put("patch", shBrushDiff);
+
+			String shBrushErlang = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushErlang.js"), CODE)));
+			JS_MAP.put("erl", shBrushErlang);
+			JS_MAP.put("erlang", shBrushErlang);
+
+			String shBrushGroovy = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushGroovy.js"), CODE)));
+			JS_MAP.put("groovy", shBrushGroovy);
+
+			String shBrushJava = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushJava.js"), CODE)));
+			JS_MAP.put("java", shBrushJava);
+			JS_MAP.put("jfx", shBrushJava);
+			JS_MAP.put("javafx", shBrushJava);
+
+			String shBrushJScript = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushJScript.js"), CODE)));
+			JS_MAP.put("js", shBrushJScript);
+			JS_MAP.put("jscript", shBrushJScript);
+			JS_MAP.put("javascript", shBrushJScript);
+
+			String shBrushPerl = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushPerl.js"), CODE)));
+			JS_MAP.put("perl", shBrushPerl);
+			JS_MAP.put("Perl", shBrushPerl);
+			JS_MAP.put("pl", shBrushPerl);
+
+			String shBrushPhp = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushPhp.js"), CODE)));
+			JS_MAP.put("php", shBrushPhp);
+
+			String shBrushPlain = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushPlain.js"), CODE)));
+			JS_MAP.put("text", shBrushPlain);
+			JS_MAP.put("plain", shBrushPlain);
+
+			String shBrushPowerShell = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushPowerShell.js"), CODE)));
+			JS_MAP.put("powershell", shBrushPowerShell);
+			JS_MAP.put("ps", shBrushPowerShell);
+
+			String shBrushPython = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushPython.js"), CODE)));
+			JS_MAP.put("py", shBrushPython);
+			JS_MAP.put("python", shBrushPython);
+
+			String shBrushRuby = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushRuby.js"), CODE)));
+			JS_MAP.put("ruby", shBrushRuby);
+			JS_MAP.put("rails", shBrushRuby);
+			JS_MAP.put("ror", shBrushRuby);
+			JS_MAP.put("rb", shBrushRuby);
+
+			String shBrushSass = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushSass.js"), CODE)));
+			JS_MAP.put("sass", shBrushSass);
+			JS_MAP.put("scss", shBrushSass);
+
+			String shBrushScala = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushScala.js"), CODE)));
+			JS_MAP.put("scala", shBrushScala);
+
+			String shBrushSql = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushSql.js"), CODE)));
+			JS_MAP.put("sql", shBrushSql);
+
+			String shBrushVb = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushVb.js"), CODE)));
+			JS_MAP.put("vb", shBrushVb);
+			JS_MAP.put("vbnet", shBrushVb);
+
+			String shBrushXml = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushXml.js"), CODE)));
+			JS_MAP.put("xml", shBrushXml);
+			JS_MAP.put("xhtml", shBrushXml);
+			JS_MAP.put("xslt", shBrushXml);
+			JS_MAP.put("html", shBrushXml);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -106,9 +197,6 @@ public abstract class JsUtil {
 			//设置scope属性
 			scope.put("___text", scope, text);
 
-			int wrapLen = jEdit.getIntegerProperty("HJFormat.wrap", 120);
-			int indentSize = jEdit.getIntegerProperty("HJFormat.indent-count" + "."
-			    + jEdit.getIntegerProperty("HJFormat.indent-count"));
 			String jsStr = JS_EVAL
 			    + " var converter=new Markdown.Converter();  Markdown.Extra.init(converter); converter.makeHtml(___text);";
 
@@ -124,47 +212,70 @@ public abstract class JsUtil {
 		}
 	}
 
+	private static void prettifyHtml(final Writer writer, final String name, final String text) throws Exception {
+		//add class
+		Jerry doc = Jerry.jerry("\n<body>\n<div id='generated-toc'></div>\n" + text + "\n</body>\n");
+		Node[] roots = doc.$("pre>code").get();
+		String attr;
+		List<String> brushs = new ArrayList<String>();
+		for (Node child : roots) {
+			attr = child.getAttribute("class");
+			if (attr == null) {
+				attr = "text";
+			}
+			attr = attr.toLowerCase();
+			if (JS_MAP.get(attr) == null) {
+				attr = "text";
+			}
+			if (brushs.contains(attr) == false) {
+				brushs.add(attr);
+			}
+			child.setAttribute("class", "brush: " + attr);
+		}
+
+		//Title
+		writer.append(jStr1);
+		writer.append(name);
+
+		//CSS
+		writer.append(jStr2);
+		writer.append(CSS_DEFAULT);
+		writer.append("\n\n");
+		writer.append(CSS_shCoreDefault);
+		writer.append(jStr3);
+
+		//JS
+		writer.append(jStr4);
+		writer.append(JS_TOC);
+		writer.append(jStr5);
+
+		writer.append(jStr4);
+		writer.append(JS_shCore);
+		writer.append(jStr5);
+		for (String brush : brushs) {
+			writer.append(jStr4);
+			writer.append(JS_MAP.get(brush));
+
+			writer.append(jStr5);
+		}
+		writer.append("\n<script type=\"text/javascript\">\n  SyntaxHighlighter.config.tagName='code';\n  SyntaxHighlighter.defaults['toolbar']=false;\n  SyntaxHighlighter.all();\n</script>\n");
+
+		//body
+		writer.append(jStr6);
+		writer.append(doc.html());
+		writer.append(jStr7);
+
+	}
+
 	public static void saveToBuffer(final View view, final Buffer buffer, final String text) {
 		view.showWaitCursor();
 		try {
 			final Buffer htmlBuffer = jEdit.newFile(view);
 
-			String name;
-			if (buffer.isUntitled()) {
-				name = "Markdown text";
-			} else {
-				name = buffer.getName();
-			}
-			StringBuilder builder = new StringBuilder(text.length() * 2);
-			builder.append(jStr1);
-			builder.append(name);
+			StringWriter writer = new StringWriter(text.length() * 2);
+			prettifyHtml(writer, buffer.getName(), text);
 
-			//CSS
-			builder.append(jStr2);
-			builder.append(CSS_DEFAULT);
-			builder.append("\n\n");
-			builder.append(CSS_PRETTIFY);
-			builder.append(jStr3);
-
-			//JS
-			builder.append(jStr4);
-			builder.append(JS_PRETTIFY);
-			builder.append(jStr5);
-
-			builder.append(jStr4);
-			builder.append(JS_TOC);
-			builder.append(jStr5);
-
-			builder.append(jStr4);
-			builder.append(jStrLoad);
-			builder.append(jStr5);
-			
-			//body
-			builder.append(jStr6);
-			builder.append(text);
-			builder.append(jStr7);
-
-			htmlBuffer.insert(0, builder.toString());
+			htmlBuffer.insert(0, writer.toString());
 
 			htmlBuffer.setMode(MODE);
 			cpoyBufferProperties(buffer, htmlBuffer);
@@ -173,6 +284,8 @@ public abstract class JsUtil {
 			view.setBuffer(htmlBuffer);
 			view.setUserTitle(buffer.getName() + ".html");
 			view.updateTitle();
+		} catch (Throwable ex) {
+			JOptionPane.showMessageDialog(null, ex, "HJFormat Plugin", JOptionPane.ERROR_MESSAGE);
 		} finally {
 			view.hideWaitCursor();
 		}
@@ -185,47 +298,22 @@ public abstract class JsUtil {
 		}
 		File htmlFile = new File(buffer.getPath() + ".html");
 
-		BufferedWriter w = null;
+		BufferedWriter writer = null;
 		view.showWaitCursor();
 		try {
-			w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(htmlFile), CODE));
-
-			w.write(jStr1);
-			w.write(buffer.getName());
-
-			//CSS
-			w.write(jStr2);
-			w.write(CSS_DEFAULT);
-			w.write("\n\n");
-			w.write(CSS_PRETTIFY);
-			w.write(jStr3);
-
-			//JS
-			w.write(jStr4);
-			w.write(JS_PRETTIFY);
-			w.write(jStr5);
-
-			w.write(jStr4);
-			w.write(JS_TOC);
-			w.write(jStr5);
-
-			w.write(jStr4);
-			w.write(jStrLoad);
-			w.write(jStr5);
-			
-			//body
-			w.write(jStr6);
-			w.write(text);
-			w.write(jStr7);
+			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(htmlFile), CODE));
+			prettifyHtml(writer, buffer.getName(), text);
+			writer.close();
+			writer = null;
 
 			BareBonesBrowserLaunch.openURL(htmlFile.toURI().toString());
-		} catch (Exception ex) {
+		} catch (Throwable ex) {
 			JOptionPane.showMessageDialog(null, ex, "HJFormat Plugin", JOptionPane.ERROR_MESSAGE);
 		} finally {
 			view.hideWaitCursor();
-			if (w != null) {
+			if (writer != null) {
 				try {
-					w.close();
+					writer.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 				}
