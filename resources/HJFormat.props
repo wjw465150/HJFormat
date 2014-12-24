@@ -66,3 +66,21 @@ HJFormat.wrap=120
 options.HJFormat.wrap.text=\
 \u8bbe\u7f6e\u81ea\u52a8\u6362\u884c\u8fb9\u8ddd\u5b57\u8282\u6570. \u7f3a\u7701\u662f120. \
 \u8bbe\u7f6e\u4e3a0\u662f\u7981\u6b62\u81ea\u52a8\u6362\u884c.  
+
+options.HJFormat.markdown-theme=markdown-theme:
+HJFormat.markdown-theme.0=shCoreDefault
+HJFormat.markdown-theme.1=shCoreDjango
+HJFormat.markdown-theme.2=shCoreEclipse
+HJFormat.markdown-theme.3=shCoreEmacs
+HJFormat.markdown-theme.4=shCoreFadeToGrey
+HJFormat.markdown-theme.5=shCoreMDUltra
+HJFormat.markdown-theme.6=shCoreMidnight
+HJFormat.markdown-theme.7=shCoreRDark
+options.HJFormat.markdown-theme.0.text=shCoreDefault
+options.HJFormat.markdown-theme.1.text=shCoreDjango
+options.HJFormat.markdown-theme.2.text=shCoreEclipse
+options.HJFormat.markdown-theme.3.text=shCoreEmacs
+options.HJFormat.markdown-theme.4.text=shCoreFadeToGrey
+options.HJFormat.markdown-theme.5.text=shCoreMDUltra
+options.HJFormat.markdown-theme.6.text=shCoreMidnight
+options.HJFormat.markdown-theme.7.text=shCoreRDark

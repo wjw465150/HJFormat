@@ -48,7 +48,7 @@ public class HJFormatBuffer {
 			JOptionPane.showMessageDialog(null, "Buffer first must saved!", "HJFormat Plugin", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		
+
 		String text = buffer.getText(0, buffer.getLength());
 
 		if (0 == text.length()) {
@@ -60,9 +60,10 @@ public class HJFormatBuffer {
 		}
 
 		text = JsUtil.markdown2Html(text);
-	  JsUtil.saveToFile(view, buffer, text);
+		String cssName = jEdit.getProperty("HJFormat.markdown-theme" + "." + jEdit.getProperty("HJFormat.markdown-theme"));
+		JsUtil.saveToFile(cssName, view, buffer, text);
 	}
-	
+
 	public static void formatBuffer(View view) {
 
 		Buffer buffer = view.getBuffer();
