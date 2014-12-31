@@ -18,9 +18,9 @@ import org.gjt.sp.util.Log;
 
 public class HJFormatBuffer {
 	private static final String[] ChineseInterpunction = { "¡°", "¡±", "¡®", "¡¯", "¡£", "£¬", "£»", "£º", "£¿", "£¡", "¡­¡­", "¡ª",
-	    "¡«", "£¨", "£©", "¡¶", "¡·", "¨”", "¨•" };
+	    "¡«", "£¨", "£©", "¡¶", "¡·", "¨”", "¨•", "¡¢", "¨C" };
 	private static final String[] EnglishInterpunction = { "\"", "\"", "'", "'", ".", ",", ";", ":", "?", "!", "¡­", "-",
-	    "~", "(", ")", "<", ">", "\"", "\"" };
+	    "~", "(", ")", "<", ">", "\"", "\"", ",", "-" };
 	private static final java.util.Map<String, String> mapC2E = new java.util.HashMap<String, String>(ChineseInterpunction.length);
 	private static final java.util.Map<String, String> mapE2C = new java.util.HashMap<String, String>(ChineseInterpunction.length);
 	static {
@@ -61,6 +61,9 @@ public class HJFormatBuffer {
 
 		text = JsUtil.markdown2Html(text);
 		String cssName = jEdit.getProperty("HJFormat.markdown-theme" + "." + jEdit.getProperty("HJFormat.markdown-theme"));
+		if (cssName == null || cssName.trim().length() == 0) {
+			cssName = "shCoreDefault";
+		}
 		JsUtil.saveToFile(cssName, view, buffer, text);
 	}
 

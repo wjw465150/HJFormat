@@ -1,11 +1,11 @@
 body {
 	font-family: Segoe UI, "Microsoft YaHei", Georgia, Helvetica, Arial, sans-serif, ËÎÌו, PMingLiU, serif;
 	font-size: 10.5pt;
-	line-height: 1.5;
+	line-height: 1.3;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	background-color: white;
-	padding: 30px;
+	padding: 15px;
 }
 
 body > *:first-child {
@@ -82,7 +82,10 @@ h6 {
 	color: #777777;
 	font-size: 14px;
 }
-p, blockquote, ul, ol, dl, li, table, pre {
+p {
+	margin: 0px 0px 10px 10px;
+}
+blockquote, ul, ol, dl, li, table, pre {
 	margin: 5px 0;
 }
 hr {

@@ -34,13 +34,14 @@ public abstract class JsUtil {
 	private static final String jStr_fix_css = "\n"+
 			"blockquote {\n"+
 			"\tborder-left: 5px solid #40AA53;\n"+
-			"\tpadding: 0 15px;\n"+
+			"\tpadding: 0 2px;\n"+
 			"\tcolor: #333;\n"+
 			"\tbackground: #efe;\n"+
-			"\tmargin: 2px 1px;\n"+
+			"\tmargin: 2px 1px 2px 15px;\n"+
 			"}\n"+
 			"\n"+
 			"pre {\n"+
+			"  margin: 0px 0px 0px 15px; \n"+
 			"  /* background-color: #f8f8f8; */\n"+
 			"  /* border: 1px solid #cccccc; */\n"+
 			"  font-size: 13px;\n"+
@@ -53,13 +54,14 @@ public abstract class JsUtil {
 	private static final String jStr_fix_default1 = "\n"+
 			"blockquote {\n"+
 			"\tborder-left: 5px solid #40AA53;\n"+
-			"\tpadding: 0 15px;\n"+
+			"\tpadding: 0 2px;\n"+
 			"\tcolor: #333;\n"+
 			"\tbackground: #efe;\n"+
-			"\tmargin: 2px 1px;\n"+
+			"\tmargin: 2px 1px 2px 15px;\n"+
 			"}\n"+
 			"\n"+
 			"pre {\n"+
+			"  margin: 0px 0px 0px 15px; \n"+
 			"  background-color: #f6f6f6; \n"+
 			"  border: 1px solid #cccccc; \n"+
 			"  font-size: 13px;\n"+
@@ -109,106 +111,104 @@ public abstract class JsUtil {
 			JS_EVAL = JS_MARKDOWN_CONVERTER + "\r\n" + JS_MARKDOWN_EXTRA + "\r\n";
 
 			JS_TOC = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/toc.js"), CODE));
-			JS_TOC = HJFormatBeautifier.compress(JS_TOC);
 
 			JS_shCore = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shCore.js"), CODE));
-			JS_shCore = HJFormatBeautifier.compress(JS_shCore);
 
 			//³õÊ¼»¯brushµÄCSS
-			String shBrushAppleScript = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushAppleScript.js"), CODE)));
+			String shBrushAppleScript = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushAppleScript.js"), CODE));
 			JS_MAP.put("applescript", shBrushAppleScript);
 
-			String shBrushAS3 = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushAS3.js"), CODE)));
+			String shBrushAS3 = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushAS3.js"), CODE));
 			JS_MAP.put("actionscript3", shBrushAS3);
 			JS_MAP.put("as3", shBrushAS3);
 
-			String shBrushBash = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushBash.js"), CODE)));
+			String shBrushBash = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushBash.js"), CODE));
 			JS_MAP.put("bash", shBrushBash);
 			JS_MAP.put("shell", shBrushBash);
 
-			String shBrushColdFusion = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushColdFusion.js"), CODE)));
+			String shBrushColdFusion = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushColdFusion.js"), CODE));
 			JS_MAP.put("coldfusion", shBrushColdFusion);
 			JS_MAP.put("cf", shBrushColdFusion);
 
-			String shBrushCpp = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushCpp.js"), CODE)));
+			String shBrushCpp = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushCpp.js"), CODE));
 			JS_MAP.put("cpp", shBrushCpp);
 			JS_MAP.put("c", shBrushCpp);
 
-			String shBrushCSharp = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushCSharp.js"), CODE)));
+			String shBrushCSharp = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushCSharp.js"), CODE));
 			JS_MAP.put("c#", shBrushCSharp);
 			JS_MAP.put("c-sharp", shBrushCSharp);
 			JS_MAP.put("csharp", shBrushCSharp);
 
-			String shBrushCss = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushCss.js"), CODE)));
+			String shBrushCss = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushCss.js"), CODE));
 			JS_MAP.put("css", shBrushCss);
 
-			String shBrushDelphi = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushDelphi.js"), CODE)));
+			String shBrushDelphi = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushDelphi.js"), CODE));
 			JS_MAP.put("delphi", shBrushDelphi);
 			JS_MAP.put("pascal", shBrushDelphi);
 			JS_MAP.put("pas", shBrushDelphi);
 
-			String shBrushDiff = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushDiff.js"), CODE)));
+			String shBrushDiff = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushDiff.js"), CODE));
 			JS_MAP.put("diff", shBrushDiff);
 			JS_MAP.put("patch", shBrushDiff);
 
-			String shBrushErlang = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushErlang.js"), CODE)));
+			String shBrushErlang = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushErlang.js"), CODE));
 			JS_MAP.put("erl", shBrushErlang);
 			JS_MAP.put("erlang", shBrushErlang);
 
-			String shBrushGroovy = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushGroovy.js"), CODE)));
+			String shBrushGroovy = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushGroovy.js"), CODE));
 			JS_MAP.put("groovy", shBrushGroovy);
 
-			String shBrushJava = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushJava.js"), CODE)));
+			String shBrushJava = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushJava.js"), CODE));
 			JS_MAP.put("java", shBrushJava);
 			JS_MAP.put("jfx", shBrushJava);
 			JS_MAP.put("javafx", shBrushJava);
 
-			String shBrushJScript = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushJScript.js"), CODE)));
+			String shBrushJScript = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushJScript.js"), CODE));
 			JS_MAP.put("js", shBrushJScript);
 			JS_MAP.put("jscript", shBrushJScript);
 			JS_MAP.put("javascript", shBrushJScript);
 
-			String shBrushPerl = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushPerl.js"), CODE)));
+			String shBrushPerl = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushPerl.js"), CODE));
 			JS_MAP.put("perl", shBrushPerl);
 			JS_MAP.put("Perl", shBrushPerl);
 			JS_MAP.put("pl", shBrushPerl);
 
-			String shBrushPhp = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushPhp.js"), CODE)));
+			String shBrushPhp = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushPhp.js"), CODE));
 			JS_MAP.put("php", shBrushPhp);
 
-			String shBrushPlain = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushPlain.js"), CODE)));
+			String shBrushPlain = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushPlain.js"), CODE));
 			JS_MAP.put("text", shBrushPlain);
 			JS_MAP.put("plain", shBrushPlain);
 
-			String shBrushPowerShell = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushPowerShell.js"), CODE)));
+			String shBrushPowerShell = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushPowerShell.js"), CODE));
 			JS_MAP.put("powershell", shBrushPowerShell);
 			JS_MAP.put("ps", shBrushPowerShell);
 
-			String shBrushPython = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushPython.js"), CODE)));
+			String shBrushPython = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushPython.js"), CODE));
 			JS_MAP.put("py", shBrushPython);
 			JS_MAP.put("python", shBrushPython);
 
-			String shBrushRuby = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushRuby.js"), CODE)));
+			String shBrushRuby = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushRuby.js"), CODE));
 			JS_MAP.put("ruby", shBrushRuby);
 			JS_MAP.put("rails", shBrushRuby);
 			JS_MAP.put("ror", shBrushRuby);
 			JS_MAP.put("rb", shBrushRuby);
 
-			String shBrushSass = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushSass.js"), CODE)));
+			String shBrushSass = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushSass.js"), CODE));
 			JS_MAP.put("sass", shBrushSass);
 			JS_MAP.put("scss", shBrushSass);
 
-			String shBrushScala = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushScala.js"), CODE)));
+			String shBrushScala = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushScala.js"), CODE));
 			JS_MAP.put("scala", shBrushScala);
 
-			String shBrushSql = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushSql.js"), CODE)));
+			String shBrushSql = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushSql.js"), CODE));
 			JS_MAP.put("sql", shBrushSql);
 
-			String shBrushVb = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushVb.js"), CODE)));
+			String shBrushVb = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushVb.js"), CODE));
 			JS_MAP.put("vb", shBrushVb);
 			JS_MAP.put("vbnet", shBrushVb);
 
-			String shBrushXml = HJFormatBeautifier.compress(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushXml.js"), CODE)));
+			String shBrushXml = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/shBrushXml.js"), CODE));
 			JS_MAP.put("xml", shBrushXml);
 			JS_MAP.put("xhtml", shBrushXml);
 			JS_MAP.put("xslt", shBrushXml);
