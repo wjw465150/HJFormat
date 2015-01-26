@@ -12,6 +12,7 @@ public class HJFormatPlugin extends EditPlugin {
 	public static final String NAME = "wjw.jedit.plugin.HJFormatPlugin";
 	public static String BASE_FORMAT;
 	public static String JS_FORMAT;
+	public static String CSS_FORMAT;
 	public static String HTML_FORMAT;
 	public static String ALL_JS;
 
@@ -20,13 +21,16 @@ public class HJFormatPlugin extends EditPlugin {
 			char[] chars = StreamUtil.readChars(HJFormatPlugin.class.getResourceAsStream("/js/base.js"), "UTF-8");
 			BASE_FORMAT = String.valueOf(chars);
 
-			chars = StreamUtil.readChars(HJFormatPlugin.class.getResourceAsStream("/js/jsformat.js"), "UTF-8");
+			chars = StreamUtil.readChars(HJFormatPlugin.class.getResourceAsStream("/js/beautify.js"), "UTF-8");
 			JS_FORMAT = String.valueOf(chars);
 
-			chars = StreamUtil.readChars(HJFormatPlugin.class.getResourceAsStream("/js/htmlformat.js"), "UTF-8");
+			chars = StreamUtil.readChars(HJFormatPlugin.class.getResourceAsStream("/js/beautify-css.js"), "UTF-8");
+			CSS_FORMAT = String.valueOf(chars);
+			
+			chars = StreamUtil.readChars(HJFormatPlugin.class.getResourceAsStream("/js/beautify-html.js"), "UTF-8");
 			HTML_FORMAT = String.valueOf(chars);
 
-			ALL_JS = BASE_FORMAT + "\r\n" + JS_FORMAT + "\r\n" + HTML_FORMAT + "\r\n";
+			ALL_JS = BASE_FORMAT + "\r\n" + JS_FORMAT + "\r\n"  + CSS_FORMAT + "\r\n" + HTML_FORMAT + "\r\n";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

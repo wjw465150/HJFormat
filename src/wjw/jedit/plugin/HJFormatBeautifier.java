@@ -31,12 +31,13 @@ public abstract class HJFormatBeautifier {
 			scope.put("___text", scope, text);
 
 			int wrapLen = jEdit.getIntegerProperty("HJFormat.wrap", 120);
-			int indentSize = jEdit.getIntegerProperty("HJFormat.indent-count" + "." + jEdit.getIntegerProperty("HJFormat.indent-count"));
+			int indentSize = jEdit.getIntegerProperty("HJFormat.indent-count" + "."
+			    + jEdit.getIntegerProperty("HJFormat.indent-count"));
 			String jsStr;
-			if (startsWithIgnoreWhitespace(text,"<")) {
-				jsStr = HJFormatPlugin.ALL_JS + " style_html(___text, " + indentSize + ", ' ', " + wrapLen + ");";
+			if (startsWithIgnoreWhitespace(text, "<")) {
+				jsStr = HJFormatPlugin.ALL_JS + " global.html_beautify(___text, " + "{'indent_size': " + indentSize + ", 'indent_char': ' ','wrap_line_length': " + wrapLen + "});";
 			} else {
-				jsStr = HJFormatPlugin.ALL_JS + " js_beautify(___text, " + indentSize + ", ' ');";
+				jsStr = HJFormatPlugin.ALL_JS + " global.js_beautify(___text, " + "{'indent_size': " + indentSize + ", 'indent_char': ' '});";
 			}
 
 			// Ö´ÐÐjs
