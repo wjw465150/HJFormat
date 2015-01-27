@@ -75,6 +75,7 @@ public class HJFormatBuffer {
 		// Setting tidy input
 		JEditTextArea textArea = view.getTextArea();
 		String text = textArea.getText();
+		int oldCaretPosition = textArea.getCaretPosition();
 
 		// Setting tidy standard output
 		boolean new_buffer = jEdit.getBooleanProperty("HJFormat.new-buffer", false);
@@ -83,6 +84,7 @@ public class HJFormatBuffer {
 
 		if (!new_buffer) {
 			HJFormatBuffer.setBufferText(buffer, text);
+			textArea.setCaretPosition(oldCaretPosition);
 			return;
 		}
 
@@ -98,6 +100,7 @@ public class HJFormatBuffer {
 			newBuffer.propertiesChanged();
 
 			HJFormatBuffer.setBufferText(newBuffer, text);
+			view.getTextArea().setCaretPosition(oldCaretPosition);
 		}
 
 	}
