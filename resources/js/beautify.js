@@ -155,6 +155,14 @@
         return s.replace(/^\s+|\s+$/g, '');
     }
 
+    function ltrim(s) {
+        return s.replace(/^\s+/g, '');
+    }
+
+    function rtrim(s) {
+        return s.replace(/\s+$/g, '');
+    }
+
     function js_beautify(js_source_text, options) {
         "use strict";
         var beautifier = new Beautifier(js_source_text, options);
@@ -1152,7 +1160,7 @@
                 print_newline(false, true);
                 if (javadoc) {
                     // javadoc: reformat and re-indent
-                    print_token(' ' + trim(lines[j]));
+                    print_token(' ' + ltrim(lines[j]));
                 } else if (starless && lines[j].length > lastIndentLength) {
                     // starless: re-indent non-empty content, avoiding trim
                     print_token(lines[j].substring(lastIndentLength));

@@ -272,6 +272,8 @@ public class HJFormatBuffer {
 
 		JEditTextArea textArea = view.getTextArea();
 		String text = textArea.getText();
+		int oldCaretPosition = textArea.getCaretPosition();
+		
 		char[] cc = text.toCharArray();
 		int len = cc.length;
 		String key;
@@ -288,6 +290,7 @@ public class HJFormatBuffer {
 
 		if (!new_buffer) {
 			HJFormatBuffer.setBufferText(buffer, text);
+			view.getTextArea().setCaretPosition(oldCaretPosition);
 			return;
 		}
 
@@ -303,6 +306,7 @@ public class HJFormatBuffer {
 			newBuffer.propertiesChanged();
 
 			HJFormatBuffer.setBufferText(newBuffer, text);
+			view.getTextArea().setCaretPosition(oldCaretPosition);
 		}
 
 	}
@@ -313,6 +317,8 @@ public class HJFormatBuffer {
 
 		JEditTextArea textArea = view.getTextArea();
 		String text = textArea.getText();
+		int oldCaretPosition = textArea.getCaretPosition();
+		
 		char[] cc = text.toCharArray();
 		int len = cc.length;
 		String key;
@@ -329,6 +335,7 @@ public class HJFormatBuffer {
 
 		if (!new_buffer) {
 			HJFormatBuffer.setBufferText(buffer, text);
+			view.getTextArea().setCaretPosition(oldCaretPosition);
 			return;
 		}
 
@@ -344,6 +351,7 @@ public class HJFormatBuffer {
 			newBuffer.propertiesChanged();
 
 			HJFormatBuffer.setBufferText(newBuffer, text);
+			view.getTextArea().setCaretPosition(oldCaretPosition);
 		}
 
 	}
