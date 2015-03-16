@@ -94,8 +94,6 @@ public abstract class JsUtil {
 
 	public static String CSS_DEFAULT;
 
-	public static String JS_MARKDOWN_CONVERTER;
-	public static String JS_MARKDOWN_EXTRA;
 	public static String JS_EVAL;
 
 	public static String JS_TOC;
@@ -104,11 +102,9 @@ public abstract class JsUtil {
 	public static Map<String, String> JS_MAP = new HashMap<String, String>();
 	static {
 		try {
-			CSS_DEFAULT = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/default.css"), "GBK"));
+			CSS_DEFAULT = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/default.css"), CODE));
 
-			JS_MARKDOWN_CONVERTER = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/Markdown.Converter.js"), CODE));
-			JS_MARKDOWN_EXTRA = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/Markdown.Extra.js"), CODE));
-			JS_EVAL = JS_MARKDOWN_CONVERTER + "\r\n" + JS_MARKDOWN_EXTRA + "\r\n";
+			JS_EVAL = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/marked.js"), CODE));
 
 			JS_TOC = String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/toc.js"), CODE));
 
@@ -244,8 +240,7 @@ public abstract class JsUtil {
 			//…Ë÷√scope Ù–‘
 			scope.put("___text", scope, text);
 
-			String jsStr = JS_EVAL
-			    + " var converter=new Markdown.Converter();  Markdown.Extra.init(converter); converter.makeHtml(___text);";
+			String jsStr = JS_EVAL + " marked(___text);";
 
 			// ÷¥––js
 			Object result = cx.evaluateString(scope, jsStr, null, 1, null);
