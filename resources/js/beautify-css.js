@@ -80,6 +80,7 @@
 
         var pos = -1,
             ch;
+        var parenLevel = 0;
 
         function next() {
             ch = source_text.charAt(++pos);
@@ -122,7 +123,7 @@
         function eatWhitespace() {
             var result = '';
             while (whiteRe.test(peek())) {
-                next()
+                next();
                 result += ch;
             }
             return result;
@@ -134,14 +135,14 @@
                 result = ch;
             }
             while (whiteRe.test(next())) {
-                result += ch
+                result += ch;
             }
             return result;
         }
 
         function eatComment(singleLine) {
             var start = pos;
-            var singleLine = peek() === "/";
+            singleLine = peek() === "/";
             next();
             while (next()) {
                 if (!singleLine && ch === "*" && peek() === "/") {
@@ -248,8 +249,8 @@
             var whitespace = skipWhitespace();
             var isAfterSpace = whitespace !== '';
             var isAfterNewline = whitespace.indexOf('\n') !== -1;
-            var last_top_ch = top_ch;
-            var top_ch = ch;
+            last_top_ch = top_ch;
+            top_ch = ch;
 
             if (!ch) {
                 break;
@@ -363,6 +364,7 @@
                         }
                     }
                 } else {
+                    parenLevel++;
                     if (isAfterSpace) {
                         print.singleSpace();
                     }
@@ -371,10 +373,11 @@
                 }
             } else if (ch === ')') {
                 output.push(ch);
+                parenLevel--;
             } else if (ch === ',') {
                 output.push(ch);
                 eatWhitespace();
-                if (!insideRule && selectorSeparatorNewline) {
+                if (!insideRule && selectorSeparatorNewline && parenLevel < 1) {
                     print.newLine();
                 } else {
                     print.singleSpace();
@@ -387,7 +390,8 @@
                 }
                 output.push(ch);
             } else if (ch === '=') { // no whitespace before or after
-                eatWhitespace();
+                eatWhitespace()
+                ch = '=';
                 output.push(ch);
             } else {
                 if (isAfterSpace) {
