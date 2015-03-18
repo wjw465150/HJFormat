@@ -31,57 +31,23 @@ public abstract class JsUtil {
 	private static final String MODE = "html";
 	private static final String CODE = "UTF-8";
 
-	private static final String jStr_fix_css = "\n"+
-			"blockquote {\n"+
-			"\tborder-left: 5px solid #40AA53;\n"+
-			"\tpadding: 0 2px;\n"+
-			"\tcolor: #333;\n"+
-			"\tbackground: #efe;\n"+
-			"\tmargin: 2px 1px 2px 15px;\n"+
-			"}\n"+
-			"\n"+
-			"pre {\n"+
-			"  margin: 0px 0px 0px 15px; \n"+
-			"  /* background-color: #f8f8f8; */\n"+
-			"  /* border: 1px solid #cccccc; */\n"+
-			"  font-size: 13px;\n"+
-			"  line-height: 19px;\n"+
-			"  overflow: auto;\n"+
-			"  padding: 0px 0px 0px 0px; \n"+
-			"  border-radius: 3px;\n"+
-			"}\n";
-	
-	private static final String jStr_fix_default1 = "\n"+
-			"blockquote {\n"+
-			"\tborder-left: 5px solid #40AA53;\n"+
-			"\tpadding: 0 2px;\n"+
-			"\tcolor: #333;\n"+
-			"\tbackground: #efe;\n"+
-			"\tmargin: 2px 1px 2px 15px;\n"+
-			"}\n"+
-			"\n"+
-			"pre {\n"+
-			"  margin: 0px 0px 0px 15px; \n"+
-			"  background-color: #f6f6f6; \n"+
-			"  border: 1px solid #cccccc; \n"+
-			"  font-size: 13px;\n"+
-			"  line-height: 19px;\n"+
-			"  overflow: auto;\n"+
-			"  padding: 0px 0px 0px 0px; \n"+
-			"  border-radius: 3px;\n"+
-			"}\n";
-	
-	private static final String jStr_fix_default2 = "\n"+
-			".syntaxhighlighter {\n"+
-			"  background-color: #f6f6f6 !important;\n"+
-			"}\n"+
-			".syntaxhighlighter .line.alt1 {\n"+
-			"  background-color: #f6f6f6 !important;\n"+
-			"}\n"+
-			".syntaxhighlighter .line.alt2 {\n"+
-			"  background-color: #f6f6f6 !important;\n"+
-			"}";
-	
+	private static final String jStr_fix_css = "\n" + "blockquote {\n" + "\tborder-left: 5px solid #40AA53;\n"
+	    + "\tpadding: 0 2px;\n" + "\tcolor: #333;\n" + "\tbackground: #efe;\n" + "\tmargin: 2px 1px 2px 15px;\n" + "}\n"
+	    + "\n" + "pre {\n" + "  margin: 0px 0px 0px 15px; \n" + "  /* background-color: #f8f8f8; */\n"
+	    + "  /* border: 1px solid #cccccc; */\n" + "  font-size: 13px;\n" + "  line-height: 19px;\n"
+	    + "  overflow: auto;\n" + "  padding: 0px 0px 0px 0px; \n" + "  border-radius: 3px;\n" + "}\n";
+
+	private static final String jStr_fix_default1 = "\n" + "blockquote {\n" + "\tborder-left: 5px solid #40AA53;\n"
+	    + "\tpadding: 0 2px;\n" + "\tcolor: #333;\n" + "\tbackground: #efe;\n" + "\tmargin: 2px 1px 2px 15px;\n" + "}\n"
+	    + "\n" + "pre {\n" + "  margin: 0px 0px 0px 15px; \n" + "  background-color: #f6f6f6; \n"
+	    + "  border: 1px solid #cccccc; \n" + "  font-size: 13px;\n" + "  line-height: 19px;\n" + "  overflow: auto;\n"
+	    + "  padding: 0px 0px 0px 0px; \n" + "  border-radius: 3px;\n" + "}\n";
+
+	private static final String jStr_fix_default2 = "\n" + ".syntaxhighlighter {\n"
+	    + "  background-color: #f6f6f6 !important;\n" + "}\n" + ".syntaxhighlighter .line.alt1 {\n"
+	    + "  background-color: #f6f6f6 !important;\n" + "}\n" + ".syntaxhighlighter .line.alt2 {\n"
+	    + "  background-color: #f6f6f6 !important;\n" + "}";
+
 	private static final String jStr1 = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n"
 	    + "<html>\n" + "<head>\n" + "<title>";
 	private static final String jStr2 = "</title>\n"
@@ -98,6 +64,13 @@ public abstract class JsUtil {
 
 	public static String JS_TOC;
 	public static String JS_shCore;
+
+	public static String JS_MathJax = "\n<script type=\"text/x-mathjax-config\">\n"
+	    + "MathJax.Hub.Config({\n"
+	    + "  tex2jax: {inlineMath: [['$','$'], ['\\\\(','\\\\)']]}\n"
+	    + "});\n"
+	    + "</script>\n"
+	    + "<script type=\"text/javascript\" src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML\"></script>\n";
 
 	public static Map<String, String> JS_MAP = new HashMap<String, String>();
 	static {
@@ -254,7 +227,8 @@ public abstract class JsUtil {
 		}
 	}
 
-	private static void prettifyHtml(final String cssName,final Writer writer, final String name, final String text) throws Exception {
+	private static void prettifyHtml(final String cssName, final Writer writer, final String name, final String text)
+	    throws Exception {
 		//add class
 		Jerry doc = Jerry.jerry("\n<body>\n<div id='generated-toc'></div>\n" + text + "\n</body>\n");
 		Node[] roots = doc.$("pre>code").get();
@@ -266,6 +240,7 @@ public abstract class JsUtil {
 				attr = "text";
 			}
 			attr = attr.toLowerCase();
+			attr=attr.substring(5);  //È¥µô"lang-"Ç°×º
 			if (JS_MAP.get(attr) == null) {
 				attr = "text";
 			}
@@ -283,8 +258,8 @@ public abstract class JsUtil {
 		writer.append(jStr2);
 		writer.append(CSS_DEFAULT);
 		writer.append("\n\n");
-		writer.append(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/"+cssName+".css"), CODE)));
-		if(cssName.toLowerCase().contains("default")) {
+		writer.append(String.valueOf(StreamUtil.readChars(JsUtil.class.getResourceAsStream("/js/sh/" + cssName + ".css"), CODE)));
+		if (cssName.toLowerCase().contains("default")) {
 			writer.append(jStr_fix_default1);
 			writer.append(jStr_fix_default2);
 		} else {
@@ -293,6 +268,10 @@ public abstract class JsUtil {
 		writer.append(jStr3);
 
 		//JS
+		if (hasTeX(text) > -1) {
+			writer.append(JS_MathJax);
+		}
+
 		writer.append(jStr4);
 		writer.append(JS_TOC);
 		writer.append(jStr5);
@@ -315,13 +294,13 @@ public abstract class JsUtil {
 
 	}
 
-	public static void saveToBuffer(final String cssName,final View view, final Buffer buffer, final String text) {
+	public static void saveToBuffer(final String cssName, final View view, final Buffer buffer, final String text) {
 		view.showWaitCursor();
 		try {
 			final Buffer htmlBuffer = jEdit.newFile(view);
 
 			StringWriter writer = new StringWriter(text.length() * 2);
-			prettifyHtml(cssName,writer, buffer.getName(), text);
+			prettifyHtml(cssName, writer, buffer.getName(), text);
 
 			htmlBuffer.insert(0, writer.toString());
 
@@ -339,7 +318,7 @@ public abstract class JsUtil {
 		}
 	}
 
-	public static void saveToFile(final String cssName,final View view, final Buffer buffer, final String text) {
+	public static void saveToFile(final String cssName, final View view, final Buffer buffer, final String text) {
 		if (buffer.isUntitled()) {
 			JOptionPane.showMessageDialog(null, "Buffer first must saved!", "HJFormat Plugin", JOptionPane.WARNING_MESSAGE);
 			return;
@@ -350,7 +329,7 @@ public abstract class JsUtil {
 		view.showWaitCursor();
 		try {
 			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(htmlFile), CODE));
-			prettifyHtml(cssName,writer, buffer.getName(), text);
+			prettifyHtml(cssName, writer, buffer.getName(), text);
 			writer.close();
 			writer = null;
 
@@ -386,4 +365,34 @@ public abstract class JsUtil {
 			}
 		}
 	}
+
+	public static int hasTeX(String txt) {
+		int pos = posTeX_A(txt);
+		if (pos > 0) {
+			return pos;
+		}
+		pos = posTeX_B(txt);
+		if (pos > 0) {
+			return pos;
+		}
+
+		return -1;
+	}
+
+	private static int posTeX_A(String txt) {
+		int pos = txt.indexOf("$$");
+		if (pos >= 0) {
+			pos = txt.indexOf("$$", pos + 3);
+		}
+		return pos;
+	}
+
+	private static int posTeX_B(String txt) {
+		int pos = txt.indexOf("\\\\(");
+		if (pos >= 0) {
+			pos = txt.indexOf("\\\\)", pos + 4);
+		}
+		return pos;
+	}
+
 }
