@@ -14,8 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JOptionPane;
-
 import jodd.io.StreamUtil;
 import jodd.jerry.Jerry;
 import jodd.lagarto.dom.Node;
@@ -220,7 +218,7 @@ public abstract class JsUtil {
 
 			return Context.toString(result);
 		} catch (Throwable thex) {
-			JOptionPane.showMessageDialog(null, thex.getMessage(), "HJFormat Plugin", JOptionPane.WARNING_MESSAGE);
+			JOptionPaneExt.showMessageDialog(null, thex.getMessage(), "HJFormat Plugin", JOptionPaneExt.WARNING_MESSAGE);
 			return thex.toString();
 		} finally {
 			Context.exit();
@@ -240,7 +238,9 @@ public abstract class JsUtil {
 				attr = "text";
 			}
 			attr = attr.toLowerCase();
-			attr=attr.substring(5);  //去掉"lang-"前缀
+			if (attr.startsWith("lang-")) { //去掉"lang-"前缀
+				attr = attr.substring(5);
+			}
 			if (JS_MAP.get(attr) == null) {
 				attr = "text";
 			}
@@ -312,7 +312,7 @@ public abstract class JsUtil {
 			view.setUserTitle(buffer.getName() + ".html");
 			view.updateTitle();
 		} catch (Throwable ex) {
-			JOptionPane.showMessageDialog(null, ex, "HJFormat Plugin", JOptionPane.ERROR_MESSAGE);
+			JOptionPaneExt.showMessageDialog(null, ex, "HJFormat Plugin", JOptionPaneExt.ERROR_MESSAGE);
 		} finally {
 			view.hideWaitCursor();
 		}
@@ -320,7 +320,7 @@ public abstract class JsUtil {
 
 	public static void saveToFile(final String cssName, final View view, final Buffer buffer, final String text) {
 		if (buffer.isUntitled()) {
-			JOptionPane.showMessageDialog(null, "Buffer first must saved!", "HJFormat Plugin", JOptionPane.WARNING_MESSAGE);
+			JOptionPaneExt.showMessageDialog(null, "Buffer first must saved!", "HJFormat Plugin", JOptionPaneExt.WARNING_MESSAGE);
 			return;
 		}
 		File htmlFile = new File(buffer.getPath() + ".html");
@@ -335,7 +335,7 @@ public abstract class JsUtil {
 
 			BareBonesBrowserLaunch.openURL(htmlFile.toURI().toString());
 		} catch (Throwable ex) {
-			JOptionPane.showMessageDialog(null, ex, "HJFormat Plugin", JOptionPane.ERROR_MESSAGE);
+			JOptionPaneExt.showMessageDialog(null, ex, "HJFormat Plugin", JOptionPaneExt.ERROR_MESSAGE);
 		} finally {
 			view.hideWaitCursor();
 			if (writer != null) {
@@ -354,14 +354,14 @@ public abstract class JsUtil {
 			try {
 				desktop.browse(new URI(url));
 			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, ex, "HJFormat Plugin", JOptionPane.ERROR_MESSAGE);
+				JOptionPaneExt.showMessageDialog(null, ex, "HJFormat Plugin", JOptionPaneExt.ERROR_MESSAGE);
 			}
 		} else {
 			Runtime runtime = Runtime.getRuntime();
 			try {
 				runtime.exec("xdg-open " + url);
 			} catch (IOException ex) {
-				JOptionPane.showMessageDialog(null, ex, "HJFormat Plugin", JOptionPane.ERROR_MESSAGE);
+				JOptionPaneExt.showMessageDialog(null, ex, "HJFormat Plugin", JOptionPaneExt.ERROR_MESSAGE);
 			}
 		}
 	}
