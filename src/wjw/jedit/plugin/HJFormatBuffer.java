@@ -18,9 +18,9 @@ import org.gjt.sp.util.Log;
 
 public class HJFormatBuffer {
 	private static final String[] ChineseInterpunction = { "¡°", "¡±", "¡®", "¡¯", "¡£", "£¬", "£»", "£º", "£¿", "£¡", "¡­¡­", "¡ª",
-	    "¡«", "£¨", "£©", "¡¶", "¡·", "¨”", "¨•", "¡¢", "¨C" };
+	    "¡«", "£¨", "£©", "¡¶", "¡·", "¨”", "¨•", "¡¢", "¨C" , "¡å" };
 	private static final String[] EnglishInterpunction = { "\"", "\"", "'", "'", ".", ",", ";", ":", "?", "!", "¡­", "-",
-	    "~", "(", ")", "<", ">", "\"", "\"", ",", "-" };
+	    "~", "(", ")", "<", ">", "\"", "\"", ",", "-" , "\"" };
 	private static final java.util.Map<String, String> mapC2E = new java.util.HashMap<String, String>(ChineseInterpunction.length);
 	private static final java.util.Map<String, String> mapE2C = new java.util.HashMap<String, String>(ChineseInterpunction.length);
 	static {
