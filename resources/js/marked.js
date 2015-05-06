@@ -24,7 +24,8 @@ var block = {
   def: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,
   table: noop,
   paragraph: /^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def))+)\n*/,
-  text: /^[^\n]+/
+  text: /^[^\n]+/,
+  seq: 0   //@wjw_add: for head link
 };
 
 block.bullet = /(?:[*+-]|\d+\.)/;
@@ -786,11 +787,14 @@ Renderer.prototype.html = function(html) {
 };
 
 Renderer.prototype.heading = function(text, level, raw) {
+  block.seq++;
+  
   return '<h'
     + level
     + ' id="'
     + this.options.headerPrefix
-    + raw.toLowerCase().replace(/[^\w]+/g, '-')
+    //+ raw.toLowerCase().replace(/[^\w]+/g, '-')
+    + '-'+block.seq+'-'
     + '">'
     + text
     + '</h'
